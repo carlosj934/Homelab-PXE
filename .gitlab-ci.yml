@@ -6,21 +6,57 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-- build
-- test
-- deploy
-- review
-- dast
-- staging
-- canary
-- production
-- incremental rollout 10%
-- incremental rollout 25%
-- incremental rollout 50%
-- incremental rollout 100%
-- performance
-- cleanup
-sast:
-  stage: test
-include:
-- template: Auto-DevOps.gitlab-ci.yml
+# - test
+# - dast
+- terraform
+- global
+
+# include:
+#   - template: Security/SAST.gitlab-ci.yml                   
+#   - template: Security/SAST-IaC.gitlab-ci.yml              
+#   - template: Security/Secret-Detection.gitlab-ci.yml      
+  # - template: Security/DAST.gitlab-ci.yml
+
+# sast:
+#   stage: test
+#   before_script:
+#     - echo "Running SAST job"
+#   tags:
+#     - local-dependencies-repo-python-runner1
+
+# kics-iac-sast:
+#   stage: test
+#   before_script:
+#   - echo "Running SAST job"
+#   tags:
+#     - local-dependencies-repo-python-runner1
+
+# .secret-analyzer:
+#   stage: test
+#   before_script:
+#   - echo "Running SAST job"
+#   tags:
+#     - local-dependencies-repo-python-runner1
+
+# dast:
+#   stage: dast
+#   tags:
+#     - local-dependencies-repo-python-runner1
+
+set_global_variables:
+  stage: terraform
+  before_script:
+    - cd "$CI_PROJECT_DIR/terraform"
+  script:
+    - echo "Setting global variables"
+    - terraform init
+    - terraform apply -auto-approve 
+  tags:
+    - local-dependencies-repo-python-runner1
+
+global:
+  stage: global
+  trigger:
+    include: "CI/.gitlab-ci.yml"
+    strategy: depend
+  when: on_success
