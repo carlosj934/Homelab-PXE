@@ -22,26 +22,26 @@ stages:
 #   before_script:
 #     - echo "Running SAST job"
 #   tags:
-#     - local-dependencies-repo-python-runner1
+#     - test
 
 # kics-iac-sast:
 #   stage: test
 #   before_script:
 #   - echo "Running SAST job"
 #   tags:
-#     - local-dependencies-repo-python-runner1
+#     - test
 
 # .secret-analyzer:
 #   stage: test
 #   before_script:
 #   - echo "Running SAST job"
 #   tags:
-#     - local-dependencies-repo-python-runner1
+#     - test
 
 # dast:
 #   stage: dast
 #   tags:
-#     - local-dependencies-repo-python-runner1
+#     - test
 
 set_global_variables:
   stage: terraform
@@ -52,7 +52,7 @@ set_global_variables:
     - terraform init
     - terraform apply -auto-approve 
   tags:
-    - local-dependencies-repo-python-runner1
+    - test
 
 global:
   stage: global
