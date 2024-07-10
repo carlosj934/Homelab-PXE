@@ -13,27 +13,27 @@ variable "pm_password" {
     default = ""
 }
 
-variable "backend_address" {
-    type = string
-    default = ""
-}
+# variable "backend_address" {
+#     type = string
+#     default = ""
+# }
 
-variable "unlock_address" {
-    type = string
-    default = ""
-}
+# variable "lock_address" {
+#     type = string
+#     default = ""
+# }
 
-variable "backend_address" {
-    type = string
-    default = ""
-}
+# variable "unlock_address" {
+#     type = string
+#     default = ""
+# }
 
-variable "gitlab_user" {
-    type = string
-    default = ""
-}
+# variable "gitlab_user" {
+#     type = string
+#     default = ""
+# }
 
-variable "gitlab_token" {
-    type = string
-    default = ""
-}
+# variable "gitlab_token" {
+#     type = string
+#     default = ""
+# }
