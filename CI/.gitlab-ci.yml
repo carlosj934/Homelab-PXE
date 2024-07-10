@@ -1,0 +1,47 @@
+stages:
+  - validate
+  - plan
+  - apply
+  - destroy
+
+validate:
+  stage: validate
+  before_script:
+    - cd "$CI_PROJECT_DIR/terraform"
+    - terraform init
+  script:
+    - terraform validate
+  tags:
+    - homelab-runner
+  
+plan:
+  stage: plan
+  before_script:
+    - cd "$CI_PROJECT_DIR/terraform"
+    - terraform init
+  script:
+    - terraform plan
+  tags:
+    - homelab-runner
+  
+apply:
+  stage: apply
+  before_script:
+    - cd "$CI_PROJECT_DIR/terraform"
+    - terraform init
+  script:
+    - terraform apply -auto-approve
+  tags:
+    - homelab-runner
+  when: manual
+
+destroy:
+  stage: destroy
+  before_script:
+    - cd "$CI_PROJECT_DIR/terraform"
+    - terraform init
+  script:
+    - terraform destroy -auto-approve
+  tags:
+    - homelab-runner
+  when: manual

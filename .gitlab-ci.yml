@@ -6,9 +6,8 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-# - test
+# - homelab-runner
 # - dast
-- terraform
 - global
 
 # include:
@@ -18,41 +17,30 @@ stages:
   # - template: Security/DAST.gitlab-ci.yml
 
 # sast:
-#   stage: test
+#   stage: homelab-runner
 #   before_script:
 #     - echo "Running SAST job"
 #   tags:
-#     - test
+#     - homelab-runner
 
 # kics-iac-sast:
-#   stage: test
+#   stage: homelab-runner
 #   before_script:
 #   - echo "Running SAST job"
 #   tags:
-#     - test
+#     - homelab-runner
 
 # .secret-analyzer:
-#   stage: test
+#   stage: homelab-runner
 #   before_script:
 #   - echo "Running SAST job"
 #   tags:
-#     - test
+#     - homelab-runner
 
 # dast:
 #   stage: dast
 #   tags:
-#     - test
-
-set_global_variables:
-  stage: terraform
-  before_script:
-    - cd "$CI_PROJECT_DIR/terraform"
-  script:
-    - echo "Setting global variables"
-    - terraform init
-    - terraform apply -auto-approve 
-  tags:
-    - test
+#     - homelab-runner
 
 global:
   stage: global
