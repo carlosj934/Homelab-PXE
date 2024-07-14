@@ -1,5 +1,5 @@
 terraform {
-  backend "local" {
+  backend "http" {
     # address = var.backend_address
     # lock_address = var.lock_address
     # unlock_address = var.unlock_address
