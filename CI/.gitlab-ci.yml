@@ -27,7 +27,16 @@ plan:
   stage: plan
   before_script:
     - cd "$CI_PROJECT_DIR/terraform"
-    - terraform init
+    - | 
+        terraform init \
+            -backend-config="address=$TF_VARS_backend_address" \
+            -backend-config="lock_address=$TF_VARS_lock_address" \
+            -backend-config="unlock_address=$TF_VARS_unlock_address" \
+            -backend-config="username=$TF_VARS_gitlab_user" \
+            -backend-config="password=$TF_VARS_gitlab_token" \
+            -backend-config="lock_method=POST" \
+            -backend-config="unlock_method=DELETE" \
+            -backend-config="retry_wait_min=5"
   script:
     - terraform plan
   tags:
@@ -37,7 +46,16 @@ apply:
   stage: apply
   before_script:
     - cd "$CI_PROJECT_DIR/terraform"
-    - terraform init
+    - | 
+        terraform init \
+            -backend-config="address=$TF_VARS_backend_address" \
+            -backend-config="lock_address=$TF_VARS_lock_address" \
+            -backend-config="unlock_address=$TF_VARS_unlock_address" \
+            -backend-config="username=$TF_VARS_gitlab_user" \
+            -backend-config="password=$TF_VARS_gitlab_token" \
+            -backend-config="lock_method=POST" \
+            -backend-config="unlock_method=DELETE" \
+            -backend-config="retry_wait_min=5"
   script:
     - terraform apply -auto-approve
   tags:
@@ -48,7 +66,16 @@ destroy:
   stage: destroy
   before_script:
     - cd "$CI_PROJECT_DIR/terraform"
-    - terraform init
+    - | 
+        terraform init \
+            -backend-config="address=$TF_VARS_backend_address" \
+            -backend-config="lock_address=$TF_VARS_lock_address" \
+            -backend-config="unlock_address=$TF_VARS_unlock_address" \
+            -backend-config="username=$TF_VARS_gitlab_user" \
+            -backend-config="password=$TF_VARS_gitlab_token" \
+            -backend-config="lock_method=POST" \
+            -backend-config="unlock_method=DELETE" \
+            -backend-config="retry_wait_min=5"
   script:
     - terraform destroy -auto-approve
   tags:
